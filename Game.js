@@ -24,8 +24,8 @@ var newPlayer;
 function init(){
   //Configurando ambiente
   canvas = document.getElementsByTagName('canvas')[0];
-  canvas.width = 1080;
-  canvas.height = 720;
+  canvas.width = 800;
+  canvas.height = 600;
   ctx = canvas.getContext("2d");
 
   //inicializando recursos
@@ -110,14 +110,14 @@ function limitCam(){
   if(newCam.x < 0){
       newCam.x = 0;
     }
-    if(newCam.x + newCam.width > (10 * 128)){
-      newCam.x = (10 * 128) - newCam.width;
+    if(newCam.x + newCam.width > (13 * 128)){
+      newCam.x = (13 * 128) - newCam.width;
     }
     if(newCam.y < 0){
       newCam.y = 0;
     }
-    if(newCam.y + newCam.height > (13 * 128)){
-      newCam.y = (13 * 128) - newCam.height;
+    if(newCam.y + newCam.height > (10 * 128)){
+      newCam.y = (10 * 128) - newCam.height;
     }
 }
 
