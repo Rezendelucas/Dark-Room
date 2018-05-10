@@ -21,34 +21,59 @@ Level.prototype.drawGrid = function (ctx, loadImg) {
   for (var r = 0; r < this.cells.length; r++) {
     for (var c = 0; c < this.cells[0].length; c++) {
       if(this.cells[r][c] == 1){
-          ctx.drawImage(loadImg.images["background"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Floor"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
           if(debug){
             ctx.strokeStyle = "Red";
             ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
           }
       }else if(this.cells[r][c] == 2){
-          ctx.drawImage(loadImg.images["background"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-          ctx.drawImage(loadImg.images["ground"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Floor"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Wall_H"], c*this.SIZE, r*this.SIZE - (this.SIZE*0.75), this.SIZE, this.SIZE);// offset pra parede ficar na ponta do bloco
           if(debug){
             ctx.strokeStyle = "Green";
             ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
           }
       }else if(this.cells[r][c] == 3){
-          ctx.drawImage(loadImg.images["background"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-          ctx.drawImage(loadImg.images["up_ground"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Floor"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Wall_V"], c*this.SIZE + (this.SIZE*0.39), r*this.SIZE  - (this.SIZE * 0.5), this.SIZE, 2*this.SIZE); 
           if(debug){
             ctx.strokeStyle = "Green";
             ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
           }
       }else if(this.cells[r][c] == 4){
-          ctx.drawImage(loadImg.images["rock"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Floor"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Wall_V"], c*this.SIZE - (this.SIZE*0.39), r*this.SIZE - (this.SIZE * 0.5), this.SIZE, 2*this.SIZE); 
           if(debug){
             ctx.strokeStyle = "Green";
             ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
           }
       }else if(this.cells[r][c] == 5){
-          ctx.drawImage(loadImg.images["ground2"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Floor"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Wall_H"], c*this.SIZE, r*this.SIZE - (this.SIZE*0.75), this.SIZE, this.SIZE);
           if(debug){
+            ctx.strokeStyle = "Green";
+            ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          }
+      }else if(this.cells[r][c] == 6){
+          ctx.drawImage(loadImg.images["Floor"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Wall_H"], c*this.SIZE, r*this.SIZE - (this.SIZE*0.75), this.SIZE, this.SIZE);
+         if(debug){
+            ctx.strokeStyle = "Green";
+            ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          }
+      }else if(this.cells[r][c] == 7){
+          ctx.drawImage(loadImg.images["Floor"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Wall_H"], c*this.SIZE, r*this.SIZE - (this.SIZE*0.75), this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Wall_V"], c*this.SIZE + (this.SIZE*0.39), r*this.SIZE - (this.SIZE * 0.5), this.SIZE, 2*this.SIZE); 
+          if(debug){
+            ctx.strokeStyle = "Green";
+            ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          }
+      }else if(this.cells[r][c] == 8){
+          ctx.drawImage(loadImg.images["Floor"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Wall_H"], c*this.SIZE, r*this.SIZE - (this.SIZE*0.75), this.SIZE, this.SIZE);
+          ctx.drawImage(loadImg.images["Wall_V"], c*this.SIZE - (this.SIZE*0.39), r*this.SIZE - (this.SIZE * 0.5), this.SIZE, 2*this.SIZE); 
+           if(debug){
             ctx.strokeStyle = "Green";
             ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
           }
@@ -81,8 +106,17 @@ Level.prototype.setCells = function (newCells) {
         case 5:
           this.cells[i][j] = 5;
           break; 
+        case 6:
+          this.cells[i][j] = 6;
+          break; 
+        case 7:
+          this.cells[i][j] = 7;
+          break; 
+        case 8:
+          this.cells[i][j] = 8;
+          break; 
         default:
-          this.cells[i][j] = 1;
+          this.cells[i][j] = 0;
       }
     }
   }
