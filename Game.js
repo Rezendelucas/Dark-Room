@@ -7,6 +7,9 @@ var anterior = new Date();
 var dt = 1/60;
 var MENU = 1;
 var GAME = 2;
+var COLLUMN = 39;
+var ROW = 10;
+var CELL = 128;
 var screen;
 var gamePaused = false;
 
@@ -35,6 +38,10 @@ function init(){
   imgLoad.load("ground2","Assets/Ground_Rock2.png");
   imgLoad.load("up_ground","Assets/Up_Rock.png");
   imgLoad.load("rock","Assets/Rock.png");
+  imgLoad.load("Floor","Assets/Floor.png");
+  imgLoad.load("Wall_H","Assets/Wall_H.png");
+  imgLoad.load("Wall_V","Assets/Wall_V.png");
+ 
 
   loadlvl = new LoadLeveis();
   loadlvl.getLevel();
@@ -43,10 +50,9 @@ function init(){
 
   //
   setScreen(MENU);
-  newCam = {x:0, y:0, width:canvas.width, height: canvas.height};
-  newLevel = new Level(10,13,128);//linhas , colunas , tamnho da cell
+  newLevel = new Level(ROW,COLLUMN,CELL);//linhas , colunas , tamnho da cell
   newLevel.currente_level = loadlvl.getLevel();
-  newPlayer = new Sprite(128*5,320,80,160);
+  newPlayer = new Sprite(128*14,320,60,110);
   requestAnimationFrame(loop);
 }
   ////////////////////////////////Game//////////////////////////////////
@@ -71,7 +77,7 @@ function loop(){
 
 
     function update(){
-      newPlayer.mover(dt);
+      updatePlayer(dt);
       updateCam();
     }
 
@@ -101,23 +107,44 @@ function posLoop(){
 }
 
 function updateCam(){
-  newCam.x = newPlayer.x - (newCam.width * 0.5); //left
+  newCam.x = (newPlayer.x + newPlayer.width/2)  - (newCam.width * 0.5); 
+  newCam.y = (newPlayer.y + newPlayer.height/2) - (newCam.height * 0.5); 
   limitCam();
-
 }
+
+function updatePlayer(dt){
+  newPlayer.mover(dt);
+  limitPlayer();
+}
+
+function limitPlayer(){
+  if(newPlayer.x < 0){
+      newPlayer.x = 0;
+    }
+    if(newPlayer.x + newPlayer.width > (COLLUMN * CELL)){
+      newPlayer.x = (COLLUMN * CELL) - newPlayer.width;
+    }
+    if(newPlayer.y < 0){
+      newPlayer.y = 0;
+    }
+    if(newPlayer.y + newPlayer.height > (ROW * CELL)){
+      newPlayer.y = (ROW * CELL) - newPlayer.height;
+    }
+}
+
 
 function limitCam(){
   if(newCam.x < 0){
       newCam.x = 0;
     }
-    if(newCam.x + newCam.width > (13 * 128)){
-      newCam.x = (13 * 128) - newCam.width;
+    if(newCam.x + newCam.width > (COLLUMN * CELL)){
+      newCam.x = (COLLUMN * CELL) - newCam.width;
     }
     if(newCam.y < 0){
       newCam.y = 0;
     }
-    if(newCam.y + newCam.height > (10 * 128)){
-      newCam.y = (10 * 128) - newCam.height;
+    if(newCam.y + newCam.height > (ROW * CELL)){
+      newCam.y = (ROW * CELL) - newCam.height;
     }
 }
 
@@ -134,11 +161,13 @@ addEventListener("keydown", function(e){
           case 32:
             break;
           case 40:
+            newPlayer.vy = 80;
             break;  
           case 37:
             newPlayer.vx = -80;
             break;
           case 38:
+            newPlayer.vy = -80;
             break;
           case 39:
             newPlayer.vx = 80;
@@ -152,11 +181,13 @@ addEventListener("keyup", function(e){
             newPlayer.vx = 0;
             break;
           case 38:
+            newPlayer.vy = 0;
             break;
           case 39:
             newPlayer.vx = 0;
             break;
           case 40:
+            newPlayer.vy = 0;
             break;  
           default:
         }
