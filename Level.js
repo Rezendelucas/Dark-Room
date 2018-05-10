@@ -90,7 +90,7 @@ Level.prototype.drawGrid = function (ctx, loadImg) {
           }
 
 
-      ///Esquina Esquerda Baixo    
+      ///Esquina Esquerda Baixo  
       }else if(this.cells[r][c] == 8){
           ctx.drawImage(loadImg.images["Floor"], c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
           ctx.drawImage(loadImg.images["Wall_H"], c*this.SIZE, r*this.SIZE - (this.SIZE*0.75), this.SIZE, this.SIZE);
@@ -99,6 +99,7 @@ Level.prototype.drawGrid = function (ctx, loadImg) {
             ctx.strokeStyle = "Green";
             ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
           }
+
 
 
        ///Is Comming !!!   
